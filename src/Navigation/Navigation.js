@@ -5,6 +5,7 @@ import NewTask from "../Screens/NewTask";
 import Name from "../Screens/Name";
 import Otp from "../Screens/Otp";
 import SignUp from "../Screens/SignUp";
+import LandingPage from "../Screens/LandingPage";
 
 const Stack = createNativeStackNavigator();
 

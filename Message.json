@@ -1,0 +1,53 @@
+{
+  "en-US": {
+    "success_messages": {
+      "succes_message_theme": "Theme success message en-US"
+    },
+    "error_messages": {
+      "error_message_theme": "Theme error message en-US"
+    },
+    "screen_messages": {
+      "screen_message_theme": "Theme screen message en-US",
+      "merchant_name": "APP",
+
+      "button": {
+        "login": "Login",
+        "signup": "Sign Up",
+        "save": "Save",
+        "upload": "Upload",
+        "update": "Update",
+        "download": "Download",
+        "downloaded": "Downloaded",
+        "complete": "Complete",
+        "completed": "Completed",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "remove": "Remove"
+      },
+
+      "common": {
+        "rupee": "₹",
+        "doller": "$",
+        "sorry": "Sorry !",
+        "thank_you": "Thank You !",
+        "Congratulations": "Congratulations !",
+        "successfull": "Success Full !",
+        "opps": "Opps !"
+      },
+
+      "welcome": "Welcome to APP!",
+      "good_morning": "Good Morning!"
+    }
+  },
+  "en-UK": {
+    "success_messages": {
+      "succes_message_theme": "Theme success message en-UK"
+    },
+    "error_messages": {
+      "error_message_theme": "Theme error message en-UK"
+    },
+    "screen_messages": {
+      "screen_message_theme": "Theme screen message en-UK"
+    }
+  }
+}
