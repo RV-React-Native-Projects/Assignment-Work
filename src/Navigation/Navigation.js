@@ -18,7 +18,7 @@ export default function MyStack() {
     try {
       const userInfo = await AsyncStorage.getItem("taskoo_user");
       // console.log("USERinfo===>", userInfo);
-      setUser(userInfo);
+      setUser(JSON.parse(userInfo));
     } catch (e) {
       console.log("Error in storing==>", e);
     }
@@ -26,12 +26,13 @@ export default function MyStack() {
 
   useEffect(() => {
     getUserInfo();
-  }, [user]);
+  }, []);
 
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName={isUserLoggedIn() ? "Home_Page" : "Landin_Page"}
+      initialRouteName={"Home_Page"}
+      // initialRouteName={isUserLoggedIn() ? "Home_Page" : "Landin_Page"}
     >
       <Stack.Screen name="Landin_Page" component={LandingPage} />
       <Stack.Screen name="SignUp_Page" component={SignUp} />

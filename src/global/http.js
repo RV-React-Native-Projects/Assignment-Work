@@ -40,7 +40,7 @@ function get(url, params, headers = undefined, body = {}) {
   });
 }
 
-function deleteRequest(url) {
+function deleteRequest(url, headers = undefined, body = {}) {
   var isStaging = shouldNotIncludeCredentials(url);
 
   return new Promise((success, failure) => {
@@ -48,10 +48,8 @@ function deleteRequest(url) {
       method: "DELETE",
       cache: "no-cache",
       credentials: isStaging ? undefined : "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${params?.token}`,
-      },
+      headers: headers ? headers : { "Content-Type": "application/json" },
+      ...body,
     })
       .then((response) => Promise.all([response.status, response.text()]))
       .then(([status, text]) => {
@@ -65,8 +63,6 @@ function deleteRequest(url) {
         }
       });
   });
-  console.log("URL==>", url);
-  console.log("params==>", params);
 }
 
 function post(url, object, headers = undefined, body = {}) {
@@ -79,12 +75,7 @@ function post(url, object, headers = undefined, body = {}) {
       data: object,
       responseType: "json",
       credentials: isStaging ? undefined : "include",
-      headers: headers
-        ? headers
-        : {
-            "Content-Type": "application/json",
-            // Authorization: params?.token ? `Bearer ${params?.token}` : null,
-          },
+      headers: headers ? headers : { "Content-Type": "application/json" },
       ...body,
     })
       .then((response) => {
@@ -102,21 +93,16 @@ function post(url, object, headers = undefined, body = {}) {
         }
       });
   });
-  console.log("URL==>", url);
-  console.log("params==>", params);
 }
 
-function put(url, params) {
+function put(url, params, headers = undefined, body = {}) {
   var isStaging = shouldNotIncludeCredentials(url);
   return new Promise((success, failure) => {
     fetch(url, {
       method: "PUT",
       cache: "no-cache",
       credentials: isStaging ? undefined : "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${params?.token}`,
-      },
+      headers: headers ? headers : { "Content-Type": "application/json" },
       body: JSON.stringify(params),
     })
       .then((response) => {
@@ -130,8 +116,6 @@ function put(url, params) {
         }
       });
   });
-  console.log("URL==>", url);
-  console.log("params==>", params);
 }
 const defaults = {};
 

@@ -48,24 +48,37 @@ const usersResource = function ($http) {
   }
 
   function getAllTasks(params) {
-    var url = host + `/api/task?phone=%2B91${params?.phone}`;
+    var headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    var url = host + `/api/task?phone=${params?.phone}`;
     console.log("URL==>", url);
     console.log("params==>", params);
-    return $http.get(url, params);
+    return $http.get(url, params, headers);
   }
 
   function createNewTask(params) {
+    var headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
     var url = host + "/api/task";
     console.log("URL==>", url);
     console.log("params==>", params);
-    return $http.post(url, params);
+    return $http.post(url, params, headers);
   }
 
   function updateTask(params) {
+    var headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
     var url = host + "/api/task";
     console.log("URL==>", url);
     console.log("params==>", params);
-    return $http.put(url, params);
+    return $http.put(url, params, headers);
   }
 
   return {

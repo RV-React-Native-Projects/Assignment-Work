@@ -5,8 +5,9 @@ import Person_BG from "./assets/svgs/Person_BG";
 import Save from "./assets/svgs/Save";
 import SignUp_BG from "./assets/svgs/SignUp_BG";
 import Suitcase from "./assets/svgs/Suitcase";
-import Timer from "./assets/svgs/Tasko";
-import Tasko from "./assets/svgs/Timer";
+import SuitcaseFilled from "./assets/svgs/SuitcaseFilled";
+import Timer from "./assets/svgs/Timer";
+import Tasko from "./assets/svgs/Tasko";
 
 const svgs = {
   Main_BG,
@@ -16,6 +17,7 @@ const svgs = {
   Save,
   SignUp_BG,
   Suitcase,
+  SuitcaseFilled,
   Tasko,
   Timer,
 };
