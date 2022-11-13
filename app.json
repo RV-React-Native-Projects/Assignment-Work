@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "assignment-work",
-    "slug": "assignment-work",
+    "name": "Taskoo",
+    "slug": "taskoo",
+    "description": "Balance work, life and everything in between with Taskoo",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -22,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.rvwork.taskoo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
