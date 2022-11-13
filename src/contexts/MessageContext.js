@@ -5,6 +5,7 @@ import I18n from "i18n-js";
 I18n.translations = Message;
 I18n.fallbacks = true;
 I18n.defaultLocale = "en-US";
+I18n.Locales = { languageTag: "en-US" };
 
 const MessagesContext = createContext();
 

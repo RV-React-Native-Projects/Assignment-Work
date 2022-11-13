@@ -16,7 +16,7 @@ export function UserContextProvider(props) {
   const [address, setAddress] = useState(null);
   const [currentLocation, setLocation] = useState(null);
 
-  const setUser = user => {
+  const setUser = (user) => {
     if (user) {
       setUserState({ user, authState: AuthState.userLoggedIn });
     } else {
@@ -27,7 +27,7 @@ export function UserContextProvider(props) {
     setUserState({ user: undefined, authState: AuthState.userLoggedOut });
   };
 
-  const setCurrentAddress = address => {
+  const setCurrentAddress = (address) => {
     if (address) {
       setAddress(address);
     } else {
@@ -35,7 +35,7 @@ export function UserContextProvider(props) {
     }
   };
 
-  const setCurrentLocation = address => {
+  const setCurrentLocation = (address) => {
     if (address) {
       setLocation(address);
     } else {

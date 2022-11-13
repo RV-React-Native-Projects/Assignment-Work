@@ -21,6 +21,27 @@ const Utils = function (ErrorConstants) {
     return errorObject;
   }
 
+  function updateErrorObject(errorObject) {
+    if (errorObject) {
+      if (errorObject.data) {
+        errorObject = errorObject.data;
+      }
+      var customMsg = "";
+      if (isEmpty(customMsg)) {
+        if (isEmpty(errorObject.message)) {
+          customMsg = errorObject.error;
+        } else {
+          customMsg = errorObject.message;
+        }
+      }
+      errorObject.message = customMsg;
+    } else {
+      errorObject = ErrorObject(ErrorConstants.ErrorCodes.UNKNOWN_ERROR, false);
+    }
+    errorObject.success = false;
+    return errorObject;
+  }
+
   function isValidEmail(email) {
     var emailPattern =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -159,6 +180,7 @@ const Utils = function (ErrorConstants) {
 
   return {
     ErrorObject: ErrorObject,
+    updateErrorObject: updateErrorObject,
     isValidPassword: isValidPassword,
     isValidEmail: isValidEmail,
     isValidPhoneNumber: isValidPhoneNumber,

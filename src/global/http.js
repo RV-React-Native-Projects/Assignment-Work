@@ -1,5 +1,9 @@
 import Qs from "qs";
 import axios from "axios";
+const tokenString =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2MjE4MjcxMywianRpIjoiYTM3NTg2ZGUtOTMxYS00MzRkLThhNjAtZTVkMDAyYzU3ZGU1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Iis5MTk0Nzk3ODk2MTgiLCJuYmYiOjE2NjIxODI3MTN9.CN-iEgEplJfqZzwdPChBPoXqfEZEQya5rpNssw1S0jE";
+
+const tokenID = `Authorization: Bearer ${tokenString}`;
 
 function shouldNotIncludeCredentials(url) {
   return (
@@ -9,7 +13,7 @@ function shouldNotIncludeCredentials(url) {
   );
 }
 
-function get(url, params) {
+function get(url, params, headers = undefined, body = {}) {
   var isStaging = shouldNotIncludeCredentials(url);
   if (params && params.params) {
     url = url + "?" + Qs.stringify(params.params);
@@ -20,6 +24,8 @@ function get(url, params) {
       params: params && params.params,
       responseType: "json",
       withCredentials: isStaging ? false : true,
+      headers: headers ? headers : { "Content-Type": "application/json" },
+      ...body,
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
@@ -44,6 +50,7 @@ function deleteRequest(url) {
       credentials: isStaging ? undefined : "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${params?.token}`,
       },
     })
       .then((response) => Promise.all([response.status, response.text()]))
@@ -58,6 +65,8 @@ function deleteRequest(url) {
         }
       });
   });
+  console.log("URL==>", url);
+  console.log("params==>", params);
 }
 
 function post(url, object, headers = undefined, body = {}) {
@@ -70,7 +79,12 @@ function post(url, object, headers = undefined, body = {}) {
       data: object,
       responseType: "json",
       credentials: isStaging ? undefined : "include",
-      headers: headers ? headers : { "Content-Type": "application/json" },
+      headers: headers
+        ? headers
+        : {
+            "Content-Type": "application/json",
+            // Authorization: params?.token ? `Bearer ${params?.token}` : null,
+          },
       ...body,
     })
       .then((response) => {
@@ -88,6 +102,8 @@ function post(url, object, headers = undefined, body = {}) {
         }
       });
   });
+  console.log("URL==>", url);
+  console.log("params==>", params);
 }
 
 function put(url, params) {
@@ -99,6 +115,7 @@ function put(url, params) {
       credentials: isStaging ? undefined : "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${params?.token}`,
       },
       body: JSON.stringify(params),
     })
@@ -113,6 +130,8 @@ function put(url, params) {
         }
       });
   });
+  console.log("URL==>", url);
+  console.log("params==>", params);
 }
 const defaults = {};
 

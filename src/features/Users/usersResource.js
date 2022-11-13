@@ -9,36 +9,62 @@ const usersResource = function ($http) {
       host +
       "/api/verification" +
       `?phone=%2B91${params?.phone}&signature=${params?.signature || "xyz"}`;
-    return $http.get(url);
+    console.log("URL==>", url);
+    console.log("params==>", params);
+    return $http.get(url, params);
   }
 
   function verifyOTP(params) {
     var url = host + "/api/verification";
+    console.log("URL==>", url);
+    console.log("params==>", params);
     return $http.post(url, params);
   }
 
   function createNewUser(params) {
+    var headers = {
+      "Content-Type": "application/json",
+    };
+    if (params?.token) {
+      headers.Authorization = `Bearer ${params?.token}`;
+    }
     var url = host + "/api/user";
-    return $http.post(url, params);
+    console.log("URL==>", url);
+    console.log("params==>", params);
+    return $http.post(url, params, headers);
   }
 
   function getUserDetails(params) {
-    var url = host + `/api/user?phone=%2B91${params?.phone}`;
-    return $http.get(url);
+    var headers = {
+      "Content-Type": "application/json",
+    };
+    if (params?.token) {
+      headers.Authorization = `Bearer ${params?.token}`;
+    }
+    var url = host + `/api/user?phone=${params?.phone}`;
+    console.log("URL==>", url);
+    console.log("params==>", params);
+    return $http.get(url, params, headers);
   }
 
   function getAllTasks(params) {
     var url = host + `/api/task?phone=%2B91${params?.phone}`;
-    return $http.get(url);
+    console.log("URL==>", url);
+    console.log("params==>", params);
+    return $http.get(url, params);
   }
 
   function createNewTask(params) {
     var url = host + "/api/task";
+    console.log("URL==>", url);
+    console.log("params==>", params);
     return $http.post(url, params);
   }
 
   function updateTask(params) {
     var url = host + "/api/task";
+    console.log("URL==>", url);
+    console.log("params==>", params);
     return $http.put(url, params);
   }
 
