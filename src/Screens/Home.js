@@ -36,26 +36,29 @@ export default function Home(props) {
   const removeUser = async () => {
     try {
       await AsyncStorage.removeItem("taskoo_user");
+      props?.navigation?.popToTop();
     } catch (e) {
       console.log("removeItem error : ", e);
     }
     console.log("Done.");
   };
   const getAllUserTasks = (token) => {
-    var phoneNumber = user?.phone?.substring(3);
-    let params = {
-      phone: `%2B91${phoneNumber}`,
-    };
-    usersManager.getAllTasks(
-      params,
-      (response) => {
-        console.log("getUserDetails Res===>", JSON.stringify(response));
-        setTasks(response?.data?.data?.task);
-      },
-      (error) => {
-        console.log("getUserDetails error : ", JSON.stringify(error, null, 2));
-      }
-    );
+    if (user?.phone) {
+      var phoneNumber = user?.phone?.substring(3);
+      let params = {
+        phone: `%2B91${phoneNumber}`,
+      };
+      usersManager.getAllTasks(
+        params,
+        (response) => {
+          console.log("getAllTasks Res===>", JSON.stringify(response));
+          setTasks(response?.data?.data?.task);
+        },
+        (error) => {
+          console.log("getAllTasks error : ", JSON.stringify(error, null, 2));
+        }
+      );
+    }
   };
 
   useFocusEffect(
@@ -163,9 +166,7 @@ export default function Home(props) {
           </TouchableOpacity>
           <ScrollView>
             {tasks?.length > 0 ? (
-              <View>
-                
-              </View>
+              <View></View>
             ) : (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <svgs.Person_BG
