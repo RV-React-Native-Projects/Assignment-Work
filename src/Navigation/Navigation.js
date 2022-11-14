@@ -31,6 +31,7 @@ export default function MyStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
+      // initialRouteName={"Home_Page"}
       initialRouteName={isUserLoggedIn() ? "Home_Page" : "Landin_Page"}
     >
       <Stack.Screen name="Landin_Page" component={LandingPage} />

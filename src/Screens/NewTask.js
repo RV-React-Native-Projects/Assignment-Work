@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   Image,
@@ -15,10 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../All_Images";
 import AppText from "../components/Text/AppText";
 import theme from "../../Theme";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import usersManager from "../features/Users/usersManager";
-import { useFocusEffect } from "@react-navigation/native";
 import svgs from "../../All_Svgs";
 import { useToast } from "native-base";
 import moment from "moment";
@@ -33,15 +29,13 @@ export default function Home(props) {
   const [currnetMode, setCurrnetMode] = useState("work");
   const toast = useToast();
 
-  const messageToolTip = () => {
+  const taskCreatedToolTip = () => {
     toast.show({
-      // title: `OTP sent to +91 - ${phone}`,
+      title: `Congratulations ! New-task Created Successfully!`,
       placement: "bottom",
       backgroundColor: "green.500",
     });
   };
-
-  console.log("USER New task===>", user);
 
   const goToHome = () => {
     props?.navigation?.navigate("Home_Page");
@@ -54,13 +48,16 @@ export default function Home(props) {
         name: title,
         details: discription,
         category: currnetMode,
-        expiry_date: moment().add(2, "days"),
+        expiry_date: moment().add(1, "days"),
       };
       usersManager.createNewTask(
         params,
         (response) => {
           console.log("createNewTask Res===>", JSON.stringify(response));
-          // setTasks(response?.data?.data?.task);
+          props?.navigation?.navigate("Home_Page");
+          setTitle("");
+          setDiscription("");
+          taskCreatedToolTip();
         },
         (error) => {
           console.log("createNewTask error : ", JSON.stringify(error, null, 2));
@@ -68,17 +65,6 @@ export default function Home(props) {
         }
       );
     } else alert("Task's Title is Required");
-  };
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     getAllUserTasks();
-  //   }, [user])
-  // );
-
-  const logOut = () => {
-    setUser(null);
-    removeUser();
   };
 
   return (

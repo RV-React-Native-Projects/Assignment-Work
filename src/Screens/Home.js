@@ -19,6 +19,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import usersManager from "../features/Users/usersManager";
 import { useFocusEffect } from "@react-navigation/native";
 import svgs from "../../All_Svgs";
+import ChartUi from "../Screen_Component/Home/ChartUi";
+import TaskList from "../Screen_Component/Home/TaskList";
 
 var windowHieght = Dimensions.get("window").height;
 var windowWidth = Dimensions.get("window").width;
@@ -42,7 +44,28 @@ export default function Home(props) {
     }
     console.log("Done.");
   };
-  const getAllUserTasks = (token) => {
+  const completeTask = (text) => {
+    if (user?.phone) {
+      var phoneNumber = user?.phone?.substring(3);
+      let params = {
+        phone: `+91${phoneNumber}`,
+        uniquelink: text,
+        status: "completed",
+      };
+      usersManager.updateTask(
+        params,
+        (response) => {
+          console.log("updateTask Res===>", JSON.stringify(response));
+          getAllUserTasks();
+        },
+        (error) => {
+          console.log("updateTask error : ", JSON.stringify(error, null, 2));
+        }
+      );
+    }
+  };
+
+  const getAllUserTasks = () => {
     if (user?.phone) {
       var phoneNumber = user?.phone?.substring(3);
       let params = {
@@ -71,6 +94,8 @@ export default function Home(props) {
     setUser(null);
     removeUser();
   };
+
+  console.log("tasks===>", tasks);
 
   return (
     <LinearGradient
@@ -131,7 +156,7 @@ export default function Home(props) {
             flex: 1,
             height: "100%",
             width: "100%",
-            backgroundColor: theme.white,
+            backgroundColor: "#FAFAFA",
             borderTopRightRadius: 30,
             borderTopLeftRadius: 30,
           }}
@@ -164,9 +189,35 @@ export default function Home(props) {
               </AppText>
             </LinearGradient>
           </TouchableOpacity>
-          <ScrollView>
+          <ScrollView
+            style={{ minHeight: "100%", flex: 1 }}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 200 }}
+          >
             {tasks?.length > 0 ? (
-              <View></View>
+              <View>
+                <AppText
+                  fontFamily={theme.Primary_SemiBold}
+                  size={26}
+                  fontStyle="semibold"
+                  fontWeight="600"
+                  color="#1B21B5"
+                  numberOfLines={1}
+                  style={{ margin: 15, marginTop: 5 }}
+                >
+                  Consistancy
+                </AppText>
+                <ChartUi data={tasks} />
+                <View style={{ marginHorizontal: 15 }}>
+                  {tasks?.map((item, index) => (
+                    <TaskList
+                      key={index}
+                      item={item}
+                      onPressComplete={(e) => completeTask(e)}
+                    />
+                  ))}
+                </View>
+              </View>
             ) : (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <svgs.Person_BG
