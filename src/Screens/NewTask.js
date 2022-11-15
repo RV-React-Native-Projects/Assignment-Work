@@ -54,7 +54,7 @@ export default function Home(props) {
         params,
         (response) => {
           console.log("createNewTask Res===>", JSON.stringify(response));
-          props?.navigation?.navigate("Home_Page");
+          goToHome();
           setTitle("");
           setDiscription("");
           taskCreatedToolTip();
